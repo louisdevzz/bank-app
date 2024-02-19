@@ -82,14 +82,7 @@ public class Main {
                         String numberAccount = input.nextLine();
                         System.out.print("Enter Amount: ");
                         String amountMoney = input.nextLine();
-                        Long yoursAccountNumber = 0L;
-                        ArrayList<Bank> bk = m.Bank();
-                        for (Bank b: bk){
-                            if (b.getNumberAccount().equals(Long.parseLong(numberAccount))) {
-                                yoursAccountNumber = b.getNumberAccount();
-                            }
-                        }
-                        m.depositMoney(yoursAccountNumber,Long.parseLong(amountMoney));
+                        m.depositMoney(Long.parseLong(numberAccount),Long.parseLong(amountMoney));
                         System.out.println("---------------------------------------------------");
                         break;
                     case 4:
