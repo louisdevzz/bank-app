@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 
@@ -82,9 +83,15 @@ public class Manager {
     }
 
     public void loginAccount(String username, String password){
-        for(User u: this.users){
-            if(u.existAccount(username,password)){
-                System.out.println("login success!!!");
+        try (MongoClient mongoClient = MongoClients.create(settings)) {
+            try {
+                MongoDatabase database = mongoClient.getDatabase("bank");
+                MongoCollection<Document> col = database.getCollection("users");
+                Bson filter = Filters.and(Filters.eq("fullName",username),Filters.eq("password",password));
+                col.find(filter).first();
+                System.out.println("Login Success!!!");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
