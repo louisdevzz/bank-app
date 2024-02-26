@@ -13,6 +13,7 @@ public class Main {
         System.out.print("Enter your chose: ");
         int choices = Integer.parseInt(input.nextLine());
         boolean isLogin = false;
+        boolean isCreate = false;
         if(choices==1){
             System.out.println("---------------------------------------------------");
             System.out.print("Enter Full Name: ");
@@ -23,6 +24,7 @@ public class Main {
             String password = input.nextLine();
             m.createBankAccount(username,password,fullName);
             System.out.println("---------------------------------------------------");
+            isLogin = true;
         }else if(choices==2){
             System.out.println("---------------------------------------------------");
             System.out.print("Enter Username: ");
@@ -95,6 +97,7 @@ public class Main {
                 }
             }
         }
+
 
     }
 }

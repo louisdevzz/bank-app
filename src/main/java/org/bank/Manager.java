@@ -51,7 +51,7 @@ public class Manager {
                         .append("password", password)
                         .append("createAt", new Timestamp(System.currentTimeMillis()))
                 );
-
+                information.add(fullName);
                 // create account bank
                 Bank bank = new Bank(fullName);
                 MongoCollection<Document> col = database.getCollection("bankData");
@@ -91,7 +91,7 @@ public class Manager {
                 Bson filter = Filters.and(Filters.eq("username",username),Filters.eq("password",password));
                 Document doc = col.find(filter).first();
                 if (doc == null) {
-                    System.out.println("No results found.");
+                    System.out.println("Account not found.");
                 } else {
                     JSONObject account = new JSONObject(doc.toJson());
                     information.add(account.getString("fullName"));
@@ -120,16 +120,6 @@ public class Manager {
                 UpdateOptions options = new UpdateOptions().upsert(true);
                 if (doc!=null){
                     col.updateOne(doc,updates,options);
-                    JSONObject account = new JSONObject(doc.toJson());
-                    System.out.println("Information Account Bank! \nAccount Number: " + account.getLong("numberAccount") +"\n"+
-                            "Full Name: " + account.getString("fullName")  +"\n"+
-                            "sex: " + account.getString("sex")  +"\n"+
-                            "Year of Birth: " + account.getString("yearOfBirth")  +"\n"+
-                            "Address: " + account.getString("address") +"\n"+
-                            "Phone Number: " + account.getString("phoneNumber")  +"\n"+
-                            "Identification Card: " + account.getString("identificationCard")+"\n"+
-                            "Code Pin: " + account.getInt("pin")+"\n"+
-                            "Money: " + account.getLong("money"));
                 }
             }catch (Exception e){
                 e.printStackTrace();
